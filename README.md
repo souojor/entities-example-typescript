@@ -1,0 +1,1 @@
+# entities-example-typescript
