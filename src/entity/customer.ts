@@ -10,7 +10,9 @@ infra - mundo externo
     - customer.ts //(regra de negócio)
 */
 
-class Customer {
+import Address from "./address";
+
+export default class Customer {
     _id: string;
     _name: string;
     _address: Address;
@@ -57,7 +59,7 @@ class Customer {
         return this._name;
     }
 
-    get address(): string {
+    get address(): Address {
         return this._address;
     }
 
@@ -65,7 +67,7 @@ class Customer {
         this._name = name;
     }
 
-    set address(address: string) {
+    set address(address: Address) {
         this.address = address;
     }
 }
