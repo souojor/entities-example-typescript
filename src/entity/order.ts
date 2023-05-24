@@ -2,16 +2,31 @@ import OrderItem from "./order_item";
 
 export default class Order {
 
-    _id: string;
-    _customerId: string; //not aggregate
-    _items: OrderItem[]; //aggregate, relation by entity (object)
-    _total: number;
+    private _id: string;
+    private _customerId: string; //not aggregate
+    private _items: OrderItem[]; //aggregate, relation by entity (object)
+    private _total: number;
 
-    constructor(id: string, customerId: string, items: OrderItems[]) {
+    constructor(id: string, customerId: string, items: OrderItem[]) {
         this._id = id;
         this._customerId = customerId;
         this._items = items;
         this._total = 0;
+        this.validate();
+    }
+
+    validate(): boolean {
+        if (this._id.length === 0) {
+            throw new Error("Id is required.");
+        }
+        if (this._customerId.length === 0) {
+            throw new Error("CustomerId is required.");
+        }
+        if (this._items.length === 0) {
+            throw new Error("Items are required.");
+        }
+        
+        return true;
     }
 
     total(): number {
