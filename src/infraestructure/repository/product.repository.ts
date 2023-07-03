@@ -15,14 +15,28 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     async update(entity: Product): Promise<void> {
-        throw new Error("Not implemented");
+        await ProductModel.update(
+            {
+                name: entity.name,
+                price: entity.price,
+            },
+            {
+                where: {
+                    id: entity.id,
+                }
+            }
+        );
     }
 
     async find(id: String): Promise<Product> {
-        throw new Error("Not implemented");
+        const productModel = await ProductModel.findOne({ where: { id } });
+
+        return new Product(productModel.id, productModel.name, productModel.price);
     }
 
     async findAll(): Promise<Product[]> {
-        throw new Error("Not implemented");
+        const productModels = await ProductModel.findAll();
+
+        return productModels.map((productModel) => new Product(productModel.id, productModel.name, productModel.price));
     }
 }
