@@ -44,6 +44,10 @@ export default class Customer {
         this.validate();
     }
 
+    changeAddress(address: Address) {
+        this._address = address
+    }
+
     activate() {
         if (this._address == null) {
             throw new Error("Address is mandatory to activate a customer.");
@@ -69,10 +73,6 @@ export default class Customer {
 
     set name(name: string) {
         this._name = name;
-    }
-
-    set address(address: Address) {
-        this._address = address;
     }
 
     addRewardPoints(points: number) {
