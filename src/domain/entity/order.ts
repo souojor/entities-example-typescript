@@ -12,6 +12,11 @@ export default class Order {
         this._customerId = customerId;
         this._items = items;
         this._total = 0;
+
+        items.map((item) => {
+            item.orderId = id;
+        });
+
         this.validate();
     }
 
@@ -41,6 +46,11 @@ export default class Order {
             throw new Error("Quantity must be greater than 0.");
         }
         return true;
+    }
+
+    changeCustomer(customerId: string) {
+        this._customerId = customerId;
+        this.validate();
     }
 
     total(): number {
