@@ -66,7 +66,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
         let orderItems:OrderItem[] = [];
 
         orderModel.items.map((itemModel) => {
-            orderItems.push(new OrderItem(itemModel.id, itemModel.name, itemModel.price, itemModel.product_id, itemModel.quantity, itemModel.order_id));
+            orderItems.push(new OrderItem(itemModel.id, itemModel.name, itemModel.price, itemModel.product_id, itemModel.quantity));
         });
 
         const order = new Order(orderModel.id, orderModel.customer_id, orderItems);
@@ -75,6 +75,24 @@ export default class OrderRepository implements OrderRepositoryInterface {
     }
 
     async findAll(): Promise<Order[]> {
-        throw Error("Not implemented");
+        const ordersModels = await OrderModel.findAll({
+            include: ["items"],
+        });
+
+        const orders:Order[] = [];
+
+        ordersModels.map((orderModel) => {
+            let orderItems:OrderItem[] = [];
+
+            orderModel.items.map((itemModel) => {
+                orderItems.push(new OrderItem(itemModel.id, itemModel.name, itemModel.price, itemModel.product_id, itemModel.quantity));
+
+                const order = new Order(orderModel.id, orderModel.customer_id, orderItems);
+
+                orders.push(order);
+            });
+        });
+
+        return orders;
     }
 }

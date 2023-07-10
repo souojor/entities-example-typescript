@@ -186,4 +186,60 @@ describe("Order repository test", () => {
         ],
       });
     });
+
+    it("should find all orders", async () => {
+      const customerRepository = new CustomerRepository();
+      const customer = new Customer("123", "Customer 1");
+      const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+      customer.changeAddress(address);
+      await customerRepository.create(customer);
+  
+      const productRepository = new ProductRepository();
+      const product = new Product("123", "Product 1", 10);
+      await productRepository.create(product);
+  
+      const orderItem = new OrderItem(
+        "1",
+        product.name,
+        product.price,
+        product.id,
+        2
+      );
+  
+      const order = new Order("123", "123", [orderItem]);
+  
+      const orderRepository = new OrderRepository();
+      await orderRepository.create(order);
+
+      const customer2 = new Customer("321", "Customer 2");
+      const address2 = new Address("Street 2", 2, "Zipcode 2", "City 2");
+      customer2.changeAddress(address2);
+      await customerRepository.create(customer2);
+  
+      const product2 = new Product("321", "Product 2", 20);
+      await productRepository.create(product2);
+  
+      const orderItem2 = new OrderItem(
+        "2",
+        product2.name,
+        product2.price,
+        product2.id,
+        4
+      );
+  
+      const order2 = new Order("321", "321", [orderItem2]);
+  
+      await orderRepository.create(order2);
+
+      const orderModel = await OrderModel.findOne(
+        { 
+          where: { id: "123" },
+          include: ["items"], 
+        });
+
+      const foundOrders = await orderRepository.findAll();
+      const orders = [order, order2];
+
+      expect(foundOrders).toEqual(orders);
+    });
   });
