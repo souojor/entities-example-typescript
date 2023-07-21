@@ -4,8 +4,8 @@ import EventDispatcher from "./@shared/event-dispatcher";
 import EnviaConsoleLogHandler from "./customer/envia-console-log.handler";
 
 
-describe("Customer events tests", () => {
-    it("should execute the Customer created event handlers", () => {
+describe("Customer change address event test", () => {
+    it("should execute the Customer Address changed event handler", () => {
         const eventDispatcher = new EventDispatcher();
         const eventHandler = new EnviaConsoleLogHandler();
         const spyEventHandler = jest.spyOn(eventHandler, "handle");

@@ -4,7 +4,7 @@ import CustomerCreatedEvent from "./customer-created.event";
 import EnviaConsoleLog1Handler from "./customer/envia-console-log1.handler";
 import EnviaConsoleLog2Handler from "./customer/envia-console-log2.handler";
 
-describe("Customer created event tests", () => {
+describe("Customer created event test", () => {
     it("should execute the Customer created event handlers", () => {
         const eventDispatcher = new EventDispatcher();
         const eventHandler1 = new EnviaConsoleLog1Handler();
