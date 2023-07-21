@@ -1,3 +1,4 @@
+import Customer from "../entity/customer";
 import EventDispatcher from "./@shared/event-dispatcher";
 import CustomerCreatedEvent from "./customer-created.event";
 import EnviaConsoleLog1Handler from "./customer/envia-console-log1.handler";
@@ -17,12 +18,7 @@ describe("Customer created event tests", () => {
         expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"]).toBeDefined();
         expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(2);
 
-        const customerCreatedEvent = new CustomerCreatedEvent({
-            id: '123',
-            name: 'Customer 123',
-        });
-        
-        eventDispatcher.notify(customerCreatedEvent);
+        const customer = new Customer("123", "Customer 123", eventDispatcher);
 
         expect(spyEventHandler1).toHaveBeenCalled();
         expect(spyEventHandler2).toHaveBeenCalled();

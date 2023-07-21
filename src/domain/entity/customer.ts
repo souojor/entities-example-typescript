@@ -10,6 +10,10 @@ infra - mundo externo
     - customer.ts //(regra de negócio)
 */
 
+import EventDispatcher from "../event/@shared/event-dispatcher";
+import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface";
+import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
+import CustomerCreatedEvent from "../event/customer-created.event";
 import Address from "./address";
 
 export default class Customer {
@@ -18,12 +22,23 @@ export default class Customer {
     private _address!: Address;
     private _active: boolean = true;
     private _rewardPoints: number = 0;
+    private _eventDispatcher: EventDispatcherInterface;
 
-    constructor(id: string, name: string) {
+    constructor(id: string, name: string, eventDispatcher?: EventDispatcherInterface) {
         this._id = id;
         this._name = name;
 
         this.validate();
+        this._eventDispatcher = eventDispatcher;
+
+        if (eventDispatcher !== undefined) {
+            const customerCreatedEvent = new CustomerCreatedEvent({
+                id: id,
+                name: name,
+            });
+            
+            eventDispatcher.notify(customerCreatedEvent);
+        }
     }
 
     validate() {
@@ -46,6 +61,16 @@ export default class Customer {
 
     changeAddress(address: Address) {
         this._address = address
+
+        if (this._eventDispatcher !== undefined) {
+            const customerCreatedEvent = new CustomerAddressChangedEvent({
+                id: this._id,
+                name: this._name,
+                address: this._address,
+            });
+            
+            this._eventDispatcher.notify(customerCreatedEvent);
+        }
     }
 
     activate() {
