@@ -10,11 +10,11 @@ infra - mundo externo
     - customer.ts //(regra de negócio)
 */
 
-import EventDispatcher from "../event/@shared/event-dispatcher";
-import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface";
 import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
 import CustomerCreatedEvent from "../event/customer-created.event";
-import Address from "./address";
+import Address from "../value-object/address";
 
 export default class Customer {
     private _id: string;

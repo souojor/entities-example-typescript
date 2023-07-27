@@ -1,8 +1,8 @@
 import Customer from "../entity/customer";
-import EventDispatcher from "./@shared/event-dispatcher";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
 import CustomerCreatedEvent from "./customer-created.event";
-import EnviaConsoleLog1Handler from "./customer/envia-console-log1.handler";
-import EnviaConsoleLog2Handler from "./customer/envia-console-log2.handler";
+import EnviaConsoleLog1Handler from "./handler/envia-console-log1.handler";
+import EnviaConsoleLog2Handler from "./handler/envia-console-log2.handler";
 
 describe("Customer created event test", () => {
     it("should execute the Customer created event handlers", () => {

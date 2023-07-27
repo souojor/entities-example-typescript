@@ -1,7 +1,7 @@
-import Address from "../entity/address";
+import Address from "../value-object/address";
 import Customer from "../entity/customer";
-import EventDispatcher from "./@shared/event-dispatcher";
-import EnviaConsoleLogHandler from "./customer/envia-console-log.handler";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import EnviaConsoleLogHandler from "./handler/envia-console-log.handler";
 
 
 describe("Customer change address event test", () => {
